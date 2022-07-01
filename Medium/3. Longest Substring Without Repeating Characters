@@ -1,1 +1,62 @@
+Question link:- https://leetcode.com/problems/longest-substring-without-repeating-characters/ 
+
 solution:-
+class Solution {
+public:
+    //---------------------------Striver Video Logic----------------------------------------
+    #include<bits/stdc++.h>
+    #include <unordered_map>
+    #include<string>
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int> index;
+        int left=0,right=0;
+        int length=0;
+        while(right<s.size())
+        {
+            if(index.count(s[right])>0)                               //if its already present
+            {
+                left=max(left,index[s[right]]+1);                     
+            }
+            index[s[right]]=right;
+            length=max(length,right-left+1);
+            right++;
+        }
+        return length;
+    }
+};
+
+
+------------------------------------------------------------------------------------------------
+
+// class Solution {
+// public:
+//     #include <unordered_map>
+//     #include<string>
+//     int lengthOfLongestSubstring(string s) {
+//        int l=0,r=0,length=0;
+//         unordered_map<char,int> index;
+//         while(r<s.size())                             //iterating through whole string
+//         {
+//             if(index.count(s[r])>0)                   //if char id is present in index 
+//             {
+//                 if(l<index[s[r]]+1)                   //update value of l if encountered char index value +1 is greater then l
+//                 {
+//                     l=index[s[r]]+1;
+                    
+//                 }
+//                 index[s[r]]=r;                        //initialize value of index element to r
+//             }
+//             else{
+//                 index[s[r]]=r;                        //else just create and initialize value of index 
+                
+//             }
+//             if(length<r-l+1)                          //check if length is less then the current length=r-l+1
+//             {
+//                 length=r-l+1;
+//             }
+//             r++;
+//         }
+//         return length;
+        
+//     }
+// };
