@@ -1,0 +1,61 @@
+Question Link:- https://leetcode.com/problems/roman-to-integer/ 
+
+----------------------------------------------------------------------------------
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char,int> romanVal;
+        romanVal['I']=1;
+        romanVal['V']=5;
+        romanVal['X']=10;
+        romanVal['L']=50;
+        romanVal['C']=100;
+        romanVal['D']=500;
+        romanVal['M']=1000;
+        int val=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='I' && i+1<s.size())
+            {
+                if(s[i+1]=='V')
+                {
+                    val+=4;i++;
+                    continue;
+                }
+                if(s[i+1]=='X')
+                {
+                    val+=9;i++;
+                    continue;
+                }
+            }
+            if(s[i]=='X' && i+1<s.size())
+            {
+                if(s[i+1]=='L')
+                {
+                    val+=40;i++;
+                    continue;
+                }
+                if(s[i+1]=='C')
+                {
+                    val+=90;i++;
+                    continue;
+                }
+            }
+            if(s[i]=='C' && i+1<s.size())
+            {
+                if(s[i+1]=='D')
+                {
+                    val+=400;i++;
+                    continue;
+                }
+                if(s[i+1]=='M')
+                {
+                    val+=900;i++;
+                    continue;
+                }
+            }
+            val+=romanVal[s[i]];
+        }
+        return val;
+    }
+};
