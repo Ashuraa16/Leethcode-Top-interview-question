@@ -1,0 +1,59 @@
+QUESTION:- https://leetcode.com/problems/median-of-two-sorted-arrays/ 
+SOLUTION EXPLANATION:- https://www.youtube.com/watch?v=NTop3VTjmxk 
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+SOLUTION:-
+
+class Solution {
+public:
+    //--------------------------TIME COMPLEXITY:-O(log(min(n1,n2)))----------------------------------
+    //--------------------------SPACE COMPLEXITY:- O(1)---------------------------------------
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        //nums1 size should be less than nums2
+        if(nums2.size()<nums1.size()) return findMedianSortedArrays(nums2,nums1);
+        
+        int n1=nums1.size();
+        int n2=nums2.size();
+        int low=0,high=n1;                                                         //low and high for further 1st part and 2nd                                                                                    //part calc
+        
+        while(low<=high)                                                           //loop till low is less than high
+        {
+            int cut1=(low+high)>>1;                                                //mid value low+high/2
+            int cut2=(n1+n2+1)/2 - cut1;                                           //next all char form both array
+            
+            int left1=cut1==0?INT_MIN:nums1[cut1-1];                               //if cut1==0 then INT_MIN else arr1[cut1-1]
+            int left2=cut2==0?INT_MIN:nums2[cut2-1];
+
+            int right1=cut1==n1?INT_MAX:nums1[cut1];
+            int right2=cut2==n2?INT_MAX:nums2[cut2];
+            
+            if(left1<=right2 && left2<=right1)                                     //comparision logic
+            {
+                if((n1+n2)%2==0)                                                   //n1 and n2 combined forms a even array
+                {
+                    return (max(left1,left2)+min(right1,right2))/2.0;              //median calc and return
+                }
+                else
+                {
+                    return max(left1,left2);                                       //median calc for odd sum array
+                }
+            }
+            else if(left1>right2)                                                  //if first condition is false reduce hifh
+            {
+                high=cut1-1;
+            }
+            else
+            {
+                low=cut1+1;                                                       //else increase low because left2>right1
+            }
+
+            
+        }
+        return 0.0;
+        
+    }
+
+};
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
